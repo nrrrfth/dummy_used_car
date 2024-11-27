@@ -3,6 +3,59 @@ from faker import Faker
 import random
 import pandas as pd
 
+import duckdb
+import json
+#membaca kredensial dari file JSON
+def read_config(file_path):
+    with open(file_path, 'r') as f:
+        config = json.load(f)
+    return config
+
+# Membaca kredensial dari file config.json
+config = read_config('config.json')
+
+# Ambil kredensial
+host = config.get('host')
+database = config.get('database')
+username = config.get('username')
+password = config.get('password')
+port = config.get('port')
+
+# Menyusun string koneksi untuk DuckDB
+# DuckDB tidak memerlukan username dan password jika menggunakan database lokal
+connection_str = f'postgresql://{username}:{password}@{host}/{database}'
+print(connection_str)
+arr_seller_id = []
+
+# Menghubungkan ke DuckDB
+try:
+    print("set up postgre")
+    conn = duckdb.connect(database=':memory:')  # Untuk DuckDB, bisa menggunakan database di memory atau file lokal
+    conn.execute('INSTALL postgres;')
+    conn.execute('LOAD postgres;')
+    conn.execute(f'ATTACH \'host={host} port={port} dbname={database} user={username} password={password}\' as db (TYPE postgres);')
+
+    print(f"Berhasil terhubung ke PosgreSQL dengan database {connection_str} menggunakan DuckDB!")
+
+    # Contoh query: Tampilkan versi DuckDB
+    result = conn.execute('SELECT version();').fetchall() # Jika menggunakan PosgreSQL sebagai database
+    # SELECT datname FROM pg_database;
+    print(result)
+
+    #ambil seller_id
+    query = "select seller_id from db.public.sellers;"
+
+    # Menampilkan hasil
+    arr_seller_id = [row[0] for row in conn.execute(query).fetchall()]  # Mengambil seller_id
+    print(arr_seller_id)
+
+    # Menutup koneksi setelah selesai
+    conn.close()
+
+except Exception as e:
+    print(f"Gagal terhubung ke database: {e}")
+    exit(1)
+
 #membuat variable untuk generator-variable sbg fungsi Faker
 fake = Faker()
 #membuat instance Faker dengan lokal Indonesia
@@ -147,8 +200,12 @@ def generate_mileage(year_of_manufacture):
         return random.randint(150000, 250000)  # Mobil bekas lebih dari 10 tahun
 
 # Definisikan sellers sebelum digunakan
+# Sudah tidak perlu menggunakan dummy seller lagi
+# sellers = {
+#     'seller_id': [fake.uuid4() for _ in range(100)]  # membuat 100 sellers
+# }
 sellers = {
-    'seller_id': [fake.uuid4() for _ in range(100)]  # membuat 100 sellers
+    'seller_id': arr_seller_id  # membuat 100 sellers
 }
 
 # Generate data dummy ads
@@ -157,7 +214,7 @@ ads = {
     'seller_id': [random.choice(sellers['seller_id']) for _ in range(n_ads)],
     'title': [],
     'description': [],
-    'car_brands': [],
+    'car_brand': [],
     'models': [],
     'body_car_type': [],
     'transmission': [random.choice(['Manual', 'Automatic']) for _ in range(n_ads)],
@@ -183,7 +240,7 @@ for i in range(n_ads):
     body_types = random.choice(brand_data['body_types'])
 
     # Append brand, model, and body type
-    ads['car_brands'].append(brand)
+    ads['car_brand'].append(brand)
     ads['models'].append(model)
     ads['body_car_type'].append(body_types)
 

@@ -1,6 +1,13 @@
 Now with docker!
 
-## How to docker
+# Installing dependencies
+There are two condition;
+## if you already build
+1. If you use docker, just `docker-compose up -d --build` in order to re-build the container
+## if you haven't
+1. Just `docker-compose up -d` since this is the first time we are going to build the container
+
+# How to docker
 1. Make sure docker has been installed in your machine then,
 2. go and `docker-compose up -d` and wait untill docker has build and run your container
 3. go ahead and do `docker ps` and take a look what ID's is the container
