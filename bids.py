@@ -75,8 +75,8 @@ n_bids = 300
 # Contoh data bids
 bids = {
     'bid_id': [fake.uuid4() for _ in range(n_bids)],
-    'ad_id': [fake.uuid4() for _ in range(n_bids)],
-    'buyer_id': [fake.uuid4() for _ in range(n_bids)],
+    'ad_id': [random.choice(arr_ad_id) for _ in range(n_bids)],
+    'buyer_id': [random.choice(arr_buyer_id) for _ in range(n_bids)],#arr_buyer_id
     'bid_amount': [round(random.randint(90_000_000, 450_000_000), 2) for _ in range(n_bids)],
     'bid_date': [fake.date_time_this_year() for _ in range(n_bids)],
     'status_bid': [random.choice(['Pending', 'Accepted', 'Rejected']) for _ in range(n_bids)],
