@@ -1,22 +1,18 @@
 #import library
 
 import duckdb
-import json
-#membaca kredensial dari file JSON
-def read_config(file_path):
-    with open(file_path, 'r') as f:
-        config = json.load(f)
-    return config
-
-# Membaca kredensial dari file config.json
-config = read_config('config.json')
+import os
+from dotenv import load_dotenv
+#membaca kredensial dari env
+load_dotenv()
 
 # Ambil kredensial
-host = config.get('host')
-database = config.get('database')
-username = config.get('username')
-password = config.get('password')
-port = config.get('port')
+host = os.getenv('POSTGRES_HOST')
+database = os.getenv('POSTGRES_DB')
+username = os.getenv('POSTGRES_USER')
+password = os.getenv('POSTGRES_PASSWORD')
+schema = os.getenv('POSTGRES_SCHEMA')
+port = os.getenv('POSTGRES_PORT')
 
 # Menyusun string koneksi untuk DuckDB
 # DuckDB tidak memerlukan username dan password jika menggunakan database lokal
