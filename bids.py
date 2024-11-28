@@ -1,4 +1,65 @@
 #import library
+
+import duckdb
+import os
+from dotenv import load_dotenv
+#membaca kredensial dari env
+load_dotenv()
+
+# Ambil kredensial
+host = os.getenv('POSTGRES_HOST')
+database = os.getenv('POSTGRES_DB')
+username = os.getenv('POSTGRES_USER')
+password = os.getenv('POSTGRES_PASSWORD')
+schema = os.getenv('POSTGRES_SCHEMA')
+port = os.getenv('POSTGRES_PORT')
+
+# Menyusun string koneksi untuk DuckDB
+# DuckDB tidak memerlukan username dan password jika menggunakan database lokal
+connection_str = f'postgresql://{username}:{password}@{host}/{database}'
+print(connection_str)
+arr_buyer_id = []
+arr_ad_id = []
+
+# Menghubungkan ke DuckDB
+try:
+    print("set up postgre")
+    conn = duckdb.connect(database=':memory:')  # Untuk DuckDB, bisa menggunakan database di memory atau file lokal
+    conn.execute('INSTALL postgres;')
+    conn.execute('LOAD postgres;')
+    conn.execute(f'ATTACH \'host={host} port={port} dbname={database} user={username} password={password}\' as db (TYPE postgres);')
+
+    print(f"Berhasil terhubung ke PosgreSQL dengan database {connection_str} menggunakan DuckDB!")
+
+    # Contoh query: Tampilkan versi DuckDB
+    result = conn.execute('SELECT version();').fetchall() # Jika menggunakan PosgreSQL sebagai database
+    # SELECT datname FROM pg_database;
+    print(result)
+
+ #ambil buyer_id
+    query = f"select buyer_id from db.{schema}.buyers;"
+
+    # Menampilkan hasil
+    arr_buyer_id = [row[0] for row in conn.execute(query).fetchall()]  # Mengambil buyer_id
+    print(arr_buyer_id)
+
+    #ambil ad_id
+    query = f"select ad_id from db.{schema}.ads"
+
+    # Menampilkan hasil
+    arr_ad_id = [row[0] for row in conn.execute(query).fetchall()]  # Mengambil add_id
+    print(arr_ad_id)
+
+
+    # Menutup koneksi setelah selesai
+    conn.close()
+
+except Exception as e:
+    print(f"Gagal terhubung ke database: {e}")
+    exit(1)
+
+
+#import library
 import pandas as pd
 from faker import Faker
 import random
