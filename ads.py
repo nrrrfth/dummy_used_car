@@ -36,7 +36,7 @@ try:
     print(result)
 
     #ambil seller_id
-    query = "select seller_id from db.public.sellers;"
+    query = f"select seller_id from db.{schema}.sellers;"
 
     # Menampilkan hasil
     arr_seller_id = [row[0] for row in conn.execute(query).fetchall()]  # Mengambil seller_id
