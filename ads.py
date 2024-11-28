@@ -1,7 +1,4 @@
 #import library
-from faker import Faker
-import random
-import pandas as pd
 
 import duckdb
 import json
@@ -55,6 +52,10 @@ try:
 except Exception as e:
     print(f"Gagal terhubung ke database: {e}")
     exit(1)
+
+from faker import Faker
+import random
+import pandas as pd
 
 #membuat variable untuk generator-variable sbg fungsi Faker
 fake = Faker()

@@ -100,3 +100,9 @@ ALTER TABLE bids
 ALTER COLUMN status_bid TYPE VARCHAR(20);
 
 -- select * from sellers;
+
+ALTER TABLE ads
+ALTER COLUMN description TYPE TEXT;
+
+ALTER TABLE ads
+ALTER COLUMN car_brand TYPE e_brand;
