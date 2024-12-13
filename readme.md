@@ -79,7 +79,7 @@ Here are the details of creating a table for Database Used Car Sales Website
 | status: ENUM(’Active’, ‘Sold’, ‘Expired’), status of ad |
 | image: TEXT, store the url or path to the car image |  
 
-### Determine Table Relationship
+## Determine Table Relationship
 - Sellers to ads → one to many
 each seller can create multiple ads
 
@@ -89,7 +89,7 @@ each ad can create multiple bids
 - Buyers to bids → one to many
 each buyer can create multiple bids
 
-### Business Rules
+## Business Rules
 Business rules are rules that are implemented by the company and must be reflected in the database.
 
 There are several types of business rules:
@@ -113,7 +113,7 @@ Each column of each table cannot be empty or not null
 4. Price Offer
     - Prospective buyers can offer product prices if they are interested in a car. this is if the seller allows the bargain feature
 
-### Determine Views
+## Determine Views
 
 - Create views or virtual tables where we can get information from multiple tables or between views easily.
 - Some commands need to be done regularly → views help the commands to be called without having to write the query continuously
@@ -135,10 +135,10 @@ In the project above, determine views as follows:
 5. Total Revenue per month
     - Create a special view to calculate the total monthly revenue from all sales.
   
-### ER Diagram
+## ER Diagram
 ![image](https://github.com/user-attachments/assets/c0cfdd72-0bc6-4df9-9650-858671e37795)
 
-### Querying of create tables
+## Querying of create tables
 ```sql
 -- create enum types for sellers table
 CREATE TYPE e_status AS enum('Active', 'Inactive');
