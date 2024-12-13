@@ -33,7 +33,7 @@ Database for Used Car Sales Website aims to:
 - Determine the key
 - Create a description of the function of each table
   
-### All that is required:
+All that is required:
 - Sellers can sell used cars and advertise them on the website
 - Sellers can advertise their used car more than once
 - Buyers can buy used cars
