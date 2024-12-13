@@ -197,14 +197,14 @@ def generate_mileage(year_of_manufacture):
         return random.randint(150000, 250000)  # Mobil bekas lebih dari 10 tahun
 
 #fungsi untuk menghasilkan data location, latitude, longitude secara acak
-def generate_location_data():
-    location= fake.city()
-    latitude = fake.latitude()
-    longitude = fake.longitude()
-    return location, latitude, longitude
+# def generate_location_data():
+#     location= fake.city()
+#     latitude = fake.latitude()
+#     longitude = fake.longitude()
+#     return location, latitude, longitude
 
 #menghasilkan data lokasi dengan list comprehension
-location, latitude, longitude = zip(*[generate_location_data() for _ in range(n_ads)])
+# location, latitude, longitude = zip(*[generate_location_data() for _ in range(n_ads)])
 
 # Definisikan sellers sebelum digunakan
 # Sudah tidak perlu menggunakan dummy seller lagi
@@ -221,9 +221,6 @@ ads = {
     'seller_id': [random.choice(sellers['seller_id']) for _ in range(n_ads)],
     'title': [],
     'description': [],
-    'location': [],
-    'latitude': [],
-    'longitude': [],
     'car_brand': [],
     'models': [],
     'body_car_type': [],
@@ -239,6 +236,13 @@ ads = {
     'status': [random.choice(['Active', 'Sold', 'Expired']) for _ in range(n_ads)],
     'image': []
 }
+
+#generate data location, latitude, longitude
+# for i in range(n_ads):
+#     location, latitude, longitude = generate_location_data() #menghasilkan data location, latitude, longitude
+#     ads['location'].append(location) #menambahkan data location
+#     ads['latitude'].append(latitude) #menambahkan data latitude
+#     ads['longitude'].append(longitude) #menambahkan data longitude
 
 # Generate car details
 for i in range(n_ads):
@@ -283,15 +287,6 @@ for i in range(n_ads):
         f"Hubungi penjual segera untuk informasi lebih lanjut!"
     )
     ads['description'].append(description)
-
-#generate data location, latitude, longitude
-for _ in range(n_ads):
-    location, latitude, longitude = generate_location_data() #menghasilkan data location, latitude, longitude
-    ads['location'].append(location) #menambahkan data location
-    ads['latitude'].append(latitude) #menambahkan data latitude
-    ads['longitude'].append(longitude) #menambahkan data longitude
-#menampilkan pesan bahwa data berhasil dimasukkan
-print(f"{n_ads} records succesfully inserted into the ads table!")
 
 # Create dataframe
 df_ads = pd.DataFrame(ads)
