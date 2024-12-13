@@ -136,7 +136,6 @@ In the project above, determine views as follows:
     - Create a special view to calculate the total monthly revenue from all sales.
   
 ### ER Diagram
-live version: https://dbdiagram.io/d/Diagram-Used-Car-DB-674862eae9daa85aca04c32c?utm_source=dbdiagram_embed&utm_medium=bottom_open
 ![image](https://github.com/user-attachments/assets/c0cfdd72-0bc6-4df9-9650-858671e37795)
 
 ### Querying of create tables
