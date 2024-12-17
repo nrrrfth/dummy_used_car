@@ -64,7 +64,7 @@ Here are the details of creating a table for Database Used Car Sales Website
 | seller_id: VARCHAR(255), Foreign Key, referes to the Sellers table |  ad_id: VARCHAR(255), FOREIGN KEY, refers to the Ads table |
 | title: VARCHAR(200), ad title | buyer_id: VARCHAR(255), Foreign Key, referes to the Buyers table |
 | description: TEXT, description of the car |  bid_amount: DECIMAL (12,2), the number of bids submitted by buyers |
-| car_brand: ENUM, car brands | location: VARCHAR(100), location of bids | status: ENUM(’Pending’, ‘Accepted’, ‘Rejected’), status of bid |
+| car_brand: ENUM, car brands | status: ENUM(’Pending’, ‘Accepted’, ‘Rejected’), status of bid |
 | models:  VARCHAR(100), car models | bid_date: TIMESTAMP, offer time |
 | body_car_type: ENUM(’MPV’, ‘SUV’, ‘Van’, ‘Sedan’, ‘Hatcback’), type of car body | interaction_type: ENUM(’View’, ‘Bid’, Contract’), type of interaction |
 | transmission: ENUM(’Manual’, ‘Automatic’) type of car transmission | bid_detail: TEXT, detail of bid |
